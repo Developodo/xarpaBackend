@@ -206,7 +206,32 @@ getActivityContacts = (request, response) => {
   if (to && to != "" && from && from != "") {
     where += ` AND t.timeini>='${from}' AND t.timeini<='${to}'`;
   }
-
+  console.log(`SELECT t.id as id,t.name as name,distance,average,atype,timeini,pointstart,owner as ownerid, u.name as ownername, 
+    u.avatar as owneravatar,image,
+    asce,ARRAY_LENGTH(l.id_users,1) as likes,l.id_users::text[] as wholikes,
+    COUNT(c.id_track) as comments,
+    to_jsonb(properties->>'track')
+    AS geometry,
+    (
+      SELECT array_to_json(array_agg('[' || p.id1 || ',' || p.id2 || ',' 
+      || p.owner1 || ',' || p.owner2 || 
+      ',' ||p.name1|| ',' ||p.name2 || ','
+      || COALESCE(p.avatar1,'') || ',' || COALESCE(p.avatar2,'') || ']')) as pals  
+          FROM test.pals as p WHERE p.id1=t.id OR p.id2=t.id
+      ) as pals,
+      (
+        SELECT array_to_json(array_agg('[' || w.id || ',' || w.id_activity || ',' 
+        || w.wtype || ',' || (w.data)::text || ']')) as awards  
+            FROM test.awards as w WHERE w.id_activity=t.id
+        ) as awards
+    FROM test.track as t 
+    LEFT JOIN test.likes as l ON l.id_track=t.id 
+    LEFT JOIN test.comments as c ON c.id_track=t.id 
+    LEFT JOIN test.users as u ON t.owner=u.id 
+    WHERE owner IN (SELECT id_followed FROM test.followers WHERE id_follower=$1 UNION
+      SELECT ${owner}) ${where}
+    GROUP BY t.id,l.id_users,u.name,u.avatar,t.name,t.distance,t.average,t.timeini,t.pointstart,t.owner,u.avatar,t.image,t.asce,l.id_users,c.id_track,t.properties 
+    ORDER BY timeini DESC LIMIT $2 OFFSET $3;`);
   pool.query(
     `SELECT t.id as id,t.name as name,distance,average,atype,timeini,pointstart,owner as ownerid, u.name as ownername, 
     u.avatar as owneravatar,image,
