@@ -1664,7 +1664,7 @@ getRoutes = (request, response) => {
   LEFT JOIN test.routesusers as ru ON t.id=ru.id_route  
   WHERE t.xarpa IN (${xarpa}) AND t.time > ${time} ${where}
   GROUP BY t.id,t.name,t.description,t.distance,t.atype,t.time,t.path,
-  t.xarpa,t.asce,l.id_users,t.name,x.image,x.name,c.id_route,t.owner,t.altitude   
+  t.xarpa,t.asce,t.desce,l.id_users,t.name,x.image,x.name,c.id_route,t.owner,t.altitude   
   ORDER BY t.time ${order} LIMIT ${limit} OFFSET ${offset};`;
 
   //console.log(q)
