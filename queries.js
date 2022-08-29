@@ -98,7 +98,7 @@ const getActivityByOwner = (request, response) => {
     u.avatar as owneravatar,image,
     asce,ARRAY_LENGTH(l.id_users,1) as likes,l.id_users::text[] as wholikes,
     COUNT(c.id_track) as comments,
-    to_jsonb(properties->>'track')
+    to_jsonb(array_agg(properties))[1]->>'track')
     AS geometry,
     (
       SELECT array_to_json(array_agg('[' || p.id1 || ',' || p.id2 || ',' 
@@ -117,7 +117,7 @@ const getActivityByOwner = (request, response) => {
     LEFT JOIN test.comments as c ON c.id_track=t.id 
     LEFT JOIN test.users as u ON t.owner=u.id 
     WHERE t.owner = $1 ${where} 
-    GROUP BY t.id,l.id_users,u.name,u.avatar 
+    GROUP BY t.id,l.id_users,u.name,u.avatar,t.name,t.distance,t.average,t.atype,t.timeini,t.pointstart,t.owner,u.avatar,t.image,t.asce,c.id_track
     ORDER BY timeini DESC LIMIT $2 OFFSET $3;`,
     [owner, limit, offset],
     (error, results) => {
