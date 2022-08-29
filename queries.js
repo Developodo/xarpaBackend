@@ -232,7 +232,7 @@ getActivityContacts = (request, response) => {
     LEFT JOIN test.users as u ON t.owner=u.id 
     WHERE owner IN (SELECT id_followed FROM test.followers WHERE id_follower=$1 UNION
       SELECT ${owner}) ${where}
-    GROUP BY t.id,l.id_users,u.name,u.avatar,t.name 
+    GROUP BY t.id,l.id_users,u.name,u.avatar,t.name,t.distance,t.average,t.timeini,t.pointstart,t.owner,u.avatar,t.image,t.asce,l.id_users,c.id_track,t.properties 
     ORDER BY timeini DESC LIMIT $2 OFFSET $3;`,
     [owner, limit, offset],
     (error, results) => {
