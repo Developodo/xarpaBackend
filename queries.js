@@ -810,7 +810,7 @@ SELECT array_agg('["' || u.id|| '","' ||u.name|| '","' || COALESCE(u.avatar,'nul
     (COALESCE((SELECT array_to_json(array_agg(f1.id_follower::text)) FROM test.followers as f1 WHERE f1.id_followed=u.id),'null'))
     || ',0 ]') from test.users as u WHERE u.name ILIKE '%${qname}%' LIMIT 100) `;
   }
-  console.log(q)
+
   pool.query(q, (error, result) => {
     if (error) {
       throw error;
