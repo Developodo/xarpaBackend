@@ -207,12 +207,17 @@ getActivityContacts = (request, response) => {
     where += ` AND t.timeini>='${from}' AND t.timeini<='${to}'`;
   }
   
+/**
+antes era properties->>'track', pero obligaba a estar en el group by dando error por ser json
+ahora (array_agg(properties))[1]
+*/
+
   pool.query(
     `SELECT t.id as id,t.name as name,distance,average,atype,timeini,pointstart,owner as ownerid, u.name as ownername, 
     u.avatar as owneravatar,image,
     asce,ARRAY_LENGTH(l.id_users,1) as likes,l.id_users::text[] as wholikes,
     COUNT(c.id_track) as comments,
-    to_jsonb(properties->>'track')
+    to_jsonb((array_agg(properties))[1]->>'track')
     AS geometry,
     (
       SELECT array_to_json(array_agg('[' || p.id1 || ',' || p.id2 || ',' 
