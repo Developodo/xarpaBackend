@@ -1,5 +1,5 @@
 ---
-title: ExpressJS Postgres
+title: Xarpa Backend  - NodeJS - Postgress
 description: An ExpressJS server that connects to a PostgreSQL database
 tags:
   - express
