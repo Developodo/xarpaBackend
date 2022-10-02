@@ -246,7 +246,6 @@ ahora (array_agg(properties))[1]
       }
       //console.log(results.row)
       const size = Buffer.byteLength(JSON.stringify(results.rows));
-      console.log("Sin comprimir " + size);
       response.status(200).json(results.rows);
     }
   );
