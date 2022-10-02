@@ -6,11 +6,19 @@ const Promise = require("promise");
 const escape = require("sqlutils/pg/escape");
 const osmsm = require("osm-static-maps");
 const Pool = require("pg").Pool;
+/**
+ * DATABASE_URL=postgresql://${{ PGUSER }}:${{ PGPASSWORD }}@${{ PGHOST }}:${{ PGPORT }}/${{ PGDATABASE }}
+PGDATABASE=railway
+PGHOST=containers-us-west-72.railway.app
+PGPASSWORD=jR4YUasS06lS9YS0Ywq6
+PGPORT=6186
+PGUSER=postgres
+ */
 const pool = new Pool({
   user: "postgres",
   host: "containers-us-west-72.railway.app",
   database: "railway",
-  password: "4GeyHL5ZK2Uu6vyhC8eO",
+  password: "jR4YUasS06lS9YS0Ywq6",
   port: 6186,
   ssl:{
     rejectUnauthorized:false
