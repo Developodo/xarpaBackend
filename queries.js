@@ -18,7 +18,7 @@ const pool = new Pool({
   user: "postgres",
   host: "containers-us-west-72.railway.app",
   database: "railway",
-  password: "XfNIJvibM2fVgarXzK9e",
+  password: "pyQpi08z2v0GGf1kBXzr",
   port: 6186,
   ssl:{
     rejectUnauthorized:false
