@@ -25,6 +25,6 @@
     "sqlutils": "^1.2.0"
   },
   "engines": {
-    "node": "10.x"
+    "node": "16.x"
   }
 }
