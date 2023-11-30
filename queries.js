@@ -15,11 +15,11 @@ PGPORT=6186
 PGUSER=postgres
    */
 const pool = new Pool({
-  user: "postgres",
-  host: "containers-us-west-72.railway.app",
-  database: "railway",
-  password: "EeXhUxYjIZNgIWUmfDre",
-  port: 6186,
+  user: "fl0user",
+  host: "ep-flat-math-96321526.eu-central-1.aws.neon.fl0.io",
+  database: "xarpa",
+  password: "Dors5gmi4IBF",
+  port: 5432,
   ssl:{
     rejectUnauthorized:false
   }
