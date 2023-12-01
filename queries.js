@@ -1587,7 +1587,7 @@ const commentRoute = (request, response) => {
   let q = `INSERT into test.rcomments (id_route,id_user,text,time) VALUES (${idroute},${iduser},${escape(
     text
   )}, current_timestamp)`;
-
+  console.log(q);
   pool.query(q, (error, result) => {
     if (error) {
       throw error;
@@ -1892,12 +1892,12 @@ const eliteFunctions_whodidtheroute = (id, response) => {
 		WHERE ru.id_track=${id}
   `;
     //CONSOLE A NOTIFICAR
-    //console.log(q)
+    console.log(q)
     pool.query(q, (error, result) => {
       if (error) {
         reject(error);
       }
-
+      console.log(JSON.stringify(result));
       if (
         result[1] &&
         result[1].rows &&
