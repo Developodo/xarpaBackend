@@ -15,10 +15,10 @@ PGPORT=6186
 PGUSER=postgres
    */
 const pool = new Pool({
-  user: "fl0user",
-  host: "ep-flat-math-96321526.eu-central-1.aws.neon.fl0.io",
-  database: "xarpa",
-  password: "Dors5gmi4IBF",
+  user: "default",
+  host: "ep-icy-truth-31340503-pooler.eu-central-1.aws.neon.tech",
+  database: "verceldb",
+  password: "wzA6JU7XSlLn",
   port: 5432,
   ssl:{
     rejectUnauthorized:false
